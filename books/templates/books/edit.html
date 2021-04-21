@@ -1,0 +1,10 @@
+{% extends "layout/main.html" %}
+{% block title %}Edit {% endblock %}
+{% block body %} 
+    <form action="{% url 'edit' book.id %}" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Update Book</button>
+        <a href="{% url 'destroy' book.id %}"> Delete</a>
+    </form>
+{% endblock %}
