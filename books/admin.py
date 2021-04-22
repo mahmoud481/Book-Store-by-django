@@ -1,8 +1,16 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
 # Register your models here.
-from .forms import BookForm
+from .forms import BookForm, CategoryForm
 from .models import Book, Category, Isbn, Tag
+
+
+
+###################################################
+class CategoryAdmin(admin.ModelAdmin):
+    form = CategoryForm
+    search_fields = ('title',)
+# ##############################################3
 
 
 class BookAdmin(admin.ModelAdmin):
@@ -21,6 +29,6 @@ class TagAdmin(admin.ModelAdmin):
     inlines = [BookInline]
 
 admin.site.register(Book,BookAdmin)
-admin.site.register(Category)
+admin.site.register(Category,CategoryAdmin)
 admin.site.register(Isbn)
 admin.site.register(Tag,TagAdmin)

@@ -1,9 +1,21 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from .models import Book, Category
 
-from .models import Book
+###################################################################################
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = "__all__"
 
+    def clean(self):
+        super(CategoryForm, self).clean()
+        title = self.cleaned_data.get('title')
+        if len(title) < 2:
+            raise ValidationError("Title Length should be At least 2")
+        return self.cleaned_data
 
+#################################################################################
 class BookForm(forms.ModelForm):
     class Meta:
         model = Book
