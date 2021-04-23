@@ -36,7 +36,7 @@ LOGIN_REDIRECT_URL = "/books/"
 
 INSTALLED_APPS = [
     'accounts',
-    'books',
+    'books.apps.BooksConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

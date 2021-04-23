@@ -21,8 +21,8 @@ class Category(models.Model):
 class Isbn(models.Model):
     author_title = models.CharField(null=True,blank=True,max_length=50)
     book_title = models.CharField(null=True,blank=True,max_length=60)
-    isbn_number = models.IntegerField(null=True, unique=True,
-           default=create_new_ref_number())
+    isbn_number = models.CharField(null=True,max_length=200, blank=True,unique=True,default=uuid.uuid4)
+
 
     def __str__(self):
         return f"{self.isbn_number}"
