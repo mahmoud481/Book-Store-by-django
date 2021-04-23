@@ -9,10 +9,12 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from django.conf.global_settings import LOGIN_REDIRECT_URL
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -28,9 +30,12 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+
+LOGIN_REDIRECT_URL = "/books/"
 # Application definition
 
 INSTALLED_APPS = [
+    'accounts',
     'books',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -55,7 +60,7 @@ ROOT_URLCONF = 'bookstore.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR ,"templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -106,6 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
+
 
 LANGUAGE_CODE = 'en-us'
 
