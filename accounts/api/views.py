@@ -7,9 +7,9 @@ from rest_framework import generics
 from rest_framework import viewsets
 
 #
-class IsViewer(BasePermission):
-    def has_permission(self, request, view):
-        return request.user.groups.filter(name="viewers").exists()
+# class IsViewer(BasePermission):
+#     def has_permission(self, request, view):
+#         return request.user.groups.filter(name="viewers").exists()
 
 @api_view(["POST"])
 def api_signup(request):

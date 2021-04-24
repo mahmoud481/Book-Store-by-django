@@ -14,12 +14,13 @@ from rest_framework import generics
 from rest_framework import viewsets
 
 
-class IsViewer(BasePermission):
-    def has_permission(self, request, view):
-        return request.user.groups.filter(name="viewers").exists()
+# class IsViewer(BasePermission):
+#     def has_permission(self, request, view):
+#         return request.user.groups.filter(name="viewers").exists()
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated, IsViewer])
+# @permission_classes([IsAuthenticated, IsViewer])
+@permission_classes([IsAuthenticated,])
 
 def index(request):
     books = Book.objects.all()
@@ -45,6 +46,52 @@ def create(request):
 
 
 
+
+@api_view(["POST"])
+def create(request):
+    serializer = BookSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(data={
+            "success": True,
+            "message": "Book has been created successfully"
+        }, status=status.HTTP_201_CREATED)
+    return Response(data={
+        "success": False,
+        "message": serializer.errors
+    }, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(["PUT"])
+def edit(request, id):
+    try:
+        book = Book.objects.get(pk=id)
+        serializer = BookSerializer(data=request.data, instance=book)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(data={
+                "success": True,
+                "message": "Book has been updated successfully"
+            }, status=status.HTTP_200_OK)
+    except Book.DoesNotExist:
+        return Response(data={
+            "success": True,
+            "message": "Book has not found"
+        }, status=status.HTTP_404_NOT_FOUND)
+
+@api_view(["DELETE"])
+def delete(request, id):
+    try:
+        book = Book.objects.get(pk=id)
+        book.delete()
+        return Response(data={
+            "success": True,
+            "message": "Book has been deleted successfully"
+        }, status=status.HTTP_200_OK)
+    except Book.DoesNotExist:
+        return Response(data={
+            "success": True,
+            "message": "Book has not found"
+        }, status=status.HTTP_404_NOT_FOUND)
 
 
 
