@@ -36,6 +36,8 @@ LOGIN_REDIRECT_URL = "/books/"
 
 INSTALLED_APPS = [
     'accounts',
+    'rest_framework',
+    'rest_framework.authtoken',
     'books.apps.BooksConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -45,6 +47,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -53,7 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'accounts.middleware.SimpleMiddleware',
+    # 'accounts.middleware.SimpleMiddleware',
 ]
 
 ROOT_URLCONF = 'bookstore.urls'
@@ -75,6 +83,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'bookstore.wsgi.application'
+
 
 
 # Database

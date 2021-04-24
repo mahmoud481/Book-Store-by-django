@@ -9,9 +9,12 @@ class SimpleMiddleware:
         # the view (and later middleware) are called.
 
         # response = self.get_response(request)
-        if request.user.is_active:
-            return self.get_response(request)
+        if request.user.username:
+            if request.user.is_active:
+                return self.get_response(request)
         # Code to be executed for each request/response after
         # the view is called.
 
-        return HttpResponseForbidden("Your are not an active user ")
+            return HttpResponseForbidden("Your are not an active user ")
+        else:
+            return self.get_response(request)
